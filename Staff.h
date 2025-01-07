@@ -1,4 +1,11 @@
-#include "Declare.h"
+#define ENTER 13
+#define BACKSPACE 8
+#define SPACE 32
+#define TAB 9
+#define UP 72
+#define DOWN 80
+#define RIGHT 77
+#define LEFT 75
 
 void admin();
 void kasir();
@@ -19,50 +26,117 @@ void updateAdmin();
 void detailKasir();
 void hpsKasir();
 void nambahKasir();
+void arrowatasbawah();
+void loginPassword(char password[]);
+void loginUsername(char username[]);
 
 
 void pemilik() {
     printf("Selamat Datang Sebagai Owner");
-
 }
 
 
 //FULL MENU ADMIN
 void admin() {
-    printf("Masukan Username: ");
-    gets(adm.username);
-    printf("Masukan Password: ");
-    inputPassword(adm.password, sizeof(adm.password));
+    // printf("Masukan Username: ");
+    //kotak username dan password
+    gotoxy(125, 25);
+    printf("Username: ");
+    gotoxy(135, 26);
+    printf("%c", 192);      //kiri bawah
+    gotoxy(135, 24);
+    printf("%c", 218);      //kiri atas
+    gotoxy(161, 24);
+    printf("%c", 191);      //kanan atas
+    gotoxy(161, 26);
+    printf("%c", 217);      //kanan bawah
+    gotoxy(135, 25);
+    printf("%c", 179);  //kiri tengah
+    gotoxy(161, 25);
+    printf("%c", 179);  //kanan tengah
+    for (x = 136;x <= 160; x++) {    //atas
+        gotoxy(x,24);
+        printf("%c", 196);
+    }
+    for (x = 136;x <= 160; x++) {    //bawah
+        gotoxy(x,26);
+        printf("%c", 196);
+    }
+
+    gotoxy(125, 28);
+    printf("Password: ");
+    gotoxy(135, 29);
+    printf("%c", 192);      //kiri bawah
+    gotoxy(135, 27);
+    printf("%c", 218);      //kiri atas
+    gotoxy(161, 27);
+    printf("%c", 191);      //kanan atas
+    gotoxy(161, 29);
+    printf("%c", 217);      //kanan bawah
+    gotoxy(135, 28);
+    printf("%c", 179);  //kiri tengah
+    gotoxy(161, 28);
+    printf("%c", 179);  //kanan tengah
+    for (x = 136;x <= 160; x++) {    //atas
+        gotoxy(x,27);
+        printf("%c", 196);
+    }
+    for (x = 136;x <= 160; x++) {    //bawah
+        gotoxy(x,29);
+        printf("%c", 196);
+    }
+    gotoxy(136, 25);
+    loginUsername(adm.username);
+    gotoxy(136, 28);
+    // printf("\nMasukan Password: ");
+    loginPassword(adm.password);
 
         if((strcmp(adm.username, "Admin")== 0) && (strcmp(adm.password, "Admin") == 0)) {
-            printf("Selamat Datang Sebagai Admin :D");
+            MessageBox(NULL, "Selamat Datang Sebagai Admin :D", "Login Admin", MB_OK | MB_ICONINFORMATION | MB_DEFAULT_DESKTOP_ONLY);
+            setClearArea(136,25,8,1);
+            setClearArea(136,28,8,1);
+            system("cls");
+            DashboardAdmin();
             do {
-                printf("\n\n1. CRUD Karyawan");
-                printf("\n2. CRUD Tiket Biasa");
-                printf("\n3. CRUD Paket Trip");
-                printf("\n4. CRUD Menu Makanan");
-                printf("\n5. Exit");
-                printf("\nMasukan Pilihan:");
+                gotoxy(22, 22);
+                printf("1. C R U D  K A R Y A W A N");
+                gotoxy(22, 24);
+                printf("2. C R U D  T I K E T  B I A S A");
+                gotoxy(22, 26);
+                printf("3. C R U D  P A K E T  T R I P");
+                gotoxy(22, 28);
+                printf("4. C R U D  M E N U  M A K A N A N");
+                gotoxy(25, 30);
+                printf("& M I N U M A N");
+                gotoxy(23, 32);
+                printf("5. Exit");
+                gotoxy(22, 34);
+                printf("Masukan Pilihan:");
+                gotoxy(38, 34);
                 scanf("%d",&pilihan);
                 fflush(stdin);
+                setClearArea(38,34,1,1);
 
                 switch(pilihan) {
                     case 1:
-                        printf("---{Menu CRUD Karyawan}---");
-                        printf("\n1. Admin");
-                        printf("\n2. Kasir");
-                        printf("\n3. Supir");
+                        PrintFile("..//Tampilan/crudkaryawan.txt", 106, 1);
+                        printf("\n1. A D M I N");
+                        printf("\n2. K A S I R");
+                        printf("\n3. S U P I R");
+                        printf("\n4. E X I T");
                         printf("\nMasukan Pilihan : ");
                         scanf("%d",&pilihan2);
                         fflush(stdin);
                         if(pilihan2 == 1) {
-                            printf("\n1. Menambah Admin");
-                            printf("\n2. Menghapus Admin");
-                            printf("\n3. Mengupdate Admin");
-                            printf("\n4. Melihat Data Admin");
-                            printf("\nSilahkan Masukan Pilihan: ");
-                            scanf("%d",&pilihan3);
-                            fflush(stdin);
+                            do {
+                                printf("\n1. Menambah Admin");
+                                printf("\n2. Menghapus Admin");
+                                printf("\n3. Mengupdate Admin");
+                                printf("\n4. Melihat Data Admin");
+                                printf("\n5. Kembali");
+                                printf("\nSilahkan Masukan Pilihan: ");
+                                scanf("%d",&pilihan3);
+                                fflush(stdin);
                                 if(pilihan3 == 1) {
                                     nambahAdmin();
                                 }
@@ -75,15 +149,18 @@ void admin() {
                                 if(pilihan3 == 4) {
                                     detailAdmin();
                                 }
+                            }while (pilihan3 != 4);
                         }
                         else if(pilihan2 == 2) {
-                            printf("\n1. Menambah Kasir");
-                            printf("\n2. Menghapus Kasir");
-                            printf("\n3. Mengupdate Kasir");
-                            printf("\n4. Melihat Data Kasir");
+                            printf("\n1. M E N A M B A H  K A S I R");
+                            printf("\n2. ME N G H A P U S  K A S I R");
+                            printf("\n3. M E N G U P D A T E  K A S I R");
+                            printf("\n4. M E L I H A T  D A T A  K A S I R");
+                            printf("\n5. E X I T");
                             printf("\nSilahkan Masukan Pilihan: ");
                             scanf("%d",&pilihan3);
                             fflush(stdin);
+                            do {
                                 if(pilihan3 == 1) {
                                     nambahKasir();
                                 }
@@ -96,13 +173,17 @@ void admin() {
                                 else if(pilihan3 == 4) {
                                     detailKasir();
                                 }
+                            }while (pilihan3 != 5);
                         }
+                    setClearArea(106,1,78,5);
                     break;
                     case 2:
-                        printf("\n1. Menambah Tiket Biasa ");
-                    printf("\n2. Menghapus Tiket Biasa ");
-                    printf("\n3. Mengupdate Tiket Biasa ");
-                    printf("\n4. Melihat Tiket Biasa ");
+                        PrintFile("..//Tampilan/crudtiketbiasa.txt", 120, 1);
+                        printf("\n1. M E N A M B A H  T I K E T  B I A S A ");
+                    printf("\n2. M E N G H A P U S  T I K E T  B I A S A ");
+                    printf("\n3. M E N G U P D A T E  T I K E T  B I A S A ");
+                    printf("\n4. M E L I H A T  T I K E T  B I A S A ");
+                    printf("\n5. E X I T");
                     printf("\nSilahkan Masukan Pilihan: ");
                     scanf("%d",&pilihan2);
                     fflush(stdin);
@@ -120,32 +201,52 @@ void admin() {
                         }
                     break;
                     case 3:
-                        printf("\n1. Menambah Tiket Paket ");
-                    printf("\n2. Menghapus Tiket Paket ");
-                    printf("\n3. Mengupdate Tiket Paket ");
-                    printf("\n4. Melihat Tiket Paket ");
-                    printf("\nSilahkan Masukan Pilihan: ");
-                    scanf("%d",&pilihan2);
-                    fflush(stdin);
-                    if(pilihan2 == 1) {
-                        nambahTpaket();
-                    }
-                    else if(pilihan2 == 2) {
-                        hpsTpaket();
-                    }
-                    else if (pilihan2 == 3) {
-                        updateTpaket();
-                    }
-                    else if (pilihan2 == 4) {
-                        detailTpaket();
-                    }
+                        setClearArea(22,22,20,20);
+                        PrintFile("..//Tampilan/crudtiketpaket.txt", 115, 1);
+                    do {
+                        setClearArea(115,10,50,35);
+                        gotoxy(20,22);
+                        printf("1. M E N A M B A H  T I K E T  P A K E T ");
+                        gotoxy(20,24);
+                        printf("2. M E N G H A P U S  T I K E T  P A K E T ");
+                        gotoxy(20,26);
+                        printf("3. M E N G U P D A T E  T I K E T  P A K E T ");
+                        gotoxy(20,28);
+                        printf("4. M E L I H A T  T I K E T  P A K E T ");
+                        gotoxy(20,30);
+                        printf("5. E X I T");
+                        gotoxy(20,32);
+                        printf("Silahkan Masukan Pilihan: ");
+                        gotoxy(45,32);
+                        scanf("%d",&pilihan2);
+                        fflush(stdin);
+                        setClearArea(45,32,1,1);
+                        if(pilihan2 == 1) {
+                            nambahTpaket();
+                            MessageBox(NULL, "Menambah Tiket Paket Sukses!", "Menambah Tiket Paket", MB_OK | MB_ICONINFORMATION | MB_DEFAULT_DESKTOP_ONLY);
+                        }
+                        else if(pilihan2 == 2) {
+                            hpsTpaket();
+                        }
+                        else if (pilihan2 == 3) {
+                            updateTpaket();
+                        }
+                        else if (pilihan2 == 4) {
+                            detailTpaket();
+                        }
+                    }while (pilihan2 != 5);
+                    setClearArea(20,22,45,30);
+                    setClearArea(115,1,60,5);
                     break;
                 }
             }while (pilihan!=5);
         }
         else {
-            printf("Masukan Username Dan Password Dengan Benar!!!\n");
+            MessageBox(NULL, "Masukan Username Dan Password Dengan Benar!!!", "Login Admin Tidak Valid", MB_OK | MB_ICONERROR | MB_DEFAULT_DESKTOP_ONLY);
+            setClearArea(136,25,8,1);
+            setClearArea(136,28,8,1);
         }
+    system("cls");
 }
 
 
@@ -313,44 +414,63 @@ void detailTbiasa() {
 //CRUD Tiket Paket
 void nambahTpaket() {
     Data1 = fopen("TiketPaket.dat", "ab");
-    printf("\n1. Masukan ID Tiket: ");
+    gotoxy(115, 22);
+    printf("1. MASUKAN ID TIKET: ");
+    gotoxy(135, 22);
     gets(Tpaket.idTbiasa);
     fflush(stdin);
-    printf("\n2. Masukan Nama Destinasi Awal Dan Akhir: ");
+    gotoxy(115, 24);
+    printf("2. MASUKAN NAMA RUTE KEBERANGKATAN - AKHIR:");
+    gotoxy(158, 24);
     gets(Tpaket.namatmpt);
     fflush(stdin);
-    printf("\n3. Masukan Hari Keberangkatan: ");
+    gotoxy(115, 26);
+    printf("3. MASUKAN TANGGAL KEBERANGKATAN: ");
+    gotoxy(148, 26);
     gets(Tpaket.jdwl);
     fflush(stdin);
-    printf("\n4. Masukan Jam Keberangkatan: ");
+    gotoxy(115, 28);
+    printf("4. MASUKAN JAM KEBERANGKATAN: ");
+    gotoxy(144, 28);
     gets(Tpaket.jam);
     fflush(stdin);
-    printf("\n5. Masukan Jumlah Harga: ");
+    gotoxy(115, 30);
+    printf("5. Masukan Jumlah Harga: ");
+    gotoxy(139, 30);
     scanf("%f", &Tpaket.hrgbiasa);
     fflush(stdin);
-    printf("\n6. Masukan Jumlah Tiket: ");
+    gotoxy(115, 32);
+    printf("6. Masukan Jumlah Tiket: ");
+    gotoxy(139, 32);
     scanf("%f", &Tpaket.jmlh);
     fflush(stdin);
+    getch();
     fwrite(&Tpaket, sizeof(Tpaket), 1, Data1);
     fclose(Data1);
+    setClearArea(115, 22, 60,20);
 }
 
 void hpsTpaket() {
     Data1 = fopen("TiketPaket.dat", "rb");
     Temp = fopen("Temp.dat", "wb");
-    printf("\nMasukan ID Tiket Yang Dicari: ");
+    gotoxy(115, 22);
+    printf("Masukan ID Tiket Yang Dicari: ");
+    gotoxy(144, 22);
     gets(&cariId);
+
     while(fread(&Tpaket, sizeof(Tpaket), 1, Data1)) {
         if(strcmp(Tpaket.idTbiasa, cariId) != 0) {
             fwrite(&Tpaket, sizeof(Tpaket), 1, Temp);
         }
     }
+
     if(strcmp(Tpaket.idTbiasa,cariId)==0) {
-        printf("Tiket Biasa Berhasil Dihapus!!!");
+        MessageBox(NULL, "Menghapus Tiket Paket Sukses!", "Menghapus Tiket Paket", MB_OK | MB_ICONINFORMATION | MB_DEFAULT_DESKTOP_ONLY);
     }
     else {
-        printf("Id Tiket Tidak Valid!!! \nHarap Masukan Id Tiket Yang Ada:D");
+        MessageBox(NULL, "Masukan ID Tiket Yang Sesuai!!", "Menghapus Tiket Paket", MB_OK | MB_ICONERROR | MB_DEFAULT_DESKTOP_ONLY);
     }
+    setClearArea(115,22,40,1);
     fclose(Data1);
     fclose(Temp);
 
@@ -364,109 +484,153 @@ void hpsTpaket() {
 }
 
 void updateTpaket() {
-    printf("\n1. Update Keberangkatan - Tujuan");
-    printf("\n2. Update Harga Tiket Biasa");
-    printf("\n3. Update Jumlah Tiket");
-    printf("\nMasukan Pilihan: ");
+    setClearArea(20,22,50,26);
+    gotoxy(22, 22);
+    printf("1. Update Keberangkatan - Tujuan");
+    gotoxy(22, 24);
+    printf("2. Update Harga Tiket Biasa");
+    gotoxy(22, 26);
+    printf("3. Update Jumlah Tiket");
+    gotoxy(22, 28);
+    printf("4. Kembali");
+    gotoxy(22, 30);
+    printf("Masukan Pilihan: ");
+    gotoxy(38, 30);
     scanf("%d",&pilihan3);
     fflush(stdin);
-    if (pilihan3 == 1) {
-        Data1 = fopen("TiketPaket.dat", "rb");
-        Temp = fopen("Temp.dat", "wb");
-        printf("\nMasukkan ID Tiket Yang Dicari: ");
-        gets(&cariId);
-        while(fread(&Tpaket,sizeof(Tpaket),1,Data1)) {
-            if(strcmp(Tpaket.idTbiasa,cariId)==0) {
-                printf("Masukkan Keberangkatan - Tujuan Baru : ");
-                scanf(" %[^\n]%*c",&Tpaket.namatmpt);
-                fwrite(&Tpaket,sizeof(Tpaket),1,Temp);
-                printf("\nTempat Tujuan Baru Berhasil Diupdate!!!");
-            }
-            else {
-                fwrite(&Tpaket,sizeof(Tpaket),1,Temp);
-            }
-        }
+    setClearArea(47, 30,1,1);
+    do {
+        if (pilihan3 == 1) {
+            Data1 = fopen("TiketPaket.dat", "rb");
+            Temp = fopen("Temp.dat", "wb");
+            gotoxy(115, 15);
+                printf("Masukkan ID Tiket Yang Dicari: ");
+            gotoxy(130, 10);
+                printf("(ketik 0 keluar): ");
+                gotoxy(145, 15);
+                gets(&cariId);
+                if(strcmp(cariId, "0")==0) {
+                    break;
+                }
+                while(fread(&Tpaket,sizeof(Tpaket),1,Data1)) {
+                    gotoxy(115, 20);
+                    printf("ID Tiket: %s", Tpaket.idTbiasa);
+                    gotoxy(115, 22);
+                    printf("Hari Keberangkatan: %s", Tpaket.jdwl);
+                    gotoxy(115, 24);
+                    printf("Jam Keberangkatan: %s", Tpaket.jam);
+                    gotoxy(115, 26);
+                    printf("Destinasi: %s", Tpaket.namatmpt);
+                    gotoxy(115, 28);
+                    printf("Jumlah Harga: %.2f", Tpaket.hrgbiasa);
+                    gotoxy(115, 30);
+                    printf("Jumlah Tiket: %.0f", Tpaket.jmlh);
+                    if(strcmp(Tpaket.idTbiasa,cariId)==0) {
+                        gotoxy(115, 30);
+                        printf("Masukkan Keberangkatan - Tujuan Baru : ");
+                        scanf(" %[^\n]%*c",&Tpaket.namatmpt);
+                        fwrite(&Tpaket,sizeof(Tpaket),1,Temp);
+                        MessageBox(NULL, "Mengupdate Tiket Paket Sukses!", "Mengupdate Tiket Paket", MB_OK | MB_ICONINFORMATION | MB_DEFAULT_DESKTOP_ONLY);
+                    }
+                    else {
+                        MessageBox(NULL, "Masukan ID Tiket Paket Yang Sesuai!!", "Mengupdate Tiket Paket", MB_OK | MB_ICONERROR | MB_DEFAULT_DESKTOP_ONLY);
+                    }
+                    setClearArea(115,15,40,30);
+                }
 
-        fclose(Data1);
-        fclose(Temp);
 
-        Data1 = fopen("TiketPaket.dat", "wb");
-        Temp = fopen("Temp.dat", "rb");
-        while(fread(&Tpaket,sizeof(Tpaket),1,Temp)) {
-            fwrite(&Tpaket,sizeof(Tpaket),1,Data1);
-        }
-        fclose(Data1);
-        fclose(Temp);
-    }
-    else if (pilihan3 == 2) {
-        Data1 = fopen("TiketPaket.dat", "rb");
-        Temp = fopen("Temp.dat", "wb");
-        printf("\nMasukkan ID Tiket Yang Dicari: ");
-        gets(&cariId);
-        while(fread(&Tpaket,sizeof(Tpaket),1,Data1)) {
-            if(strcmp(Tpaket.idTbiasa,cariId)==0) {
-                printf("Masukkan Harga Tiket Baru : ");
-                scanf(" %f",&Tpaket.hrgbiasa);
-                fwrite(&Tpaket,sizeof(Tpaket),1,Temp);
-                printf("\nHarga Baru Berhasil Diupdate!!!");
+            fclose(Data1);
+            fclose(Temp);
+
+            Data1 = fopen("TiketPaket.dat", "wb");
+            Temp = fopen("Temp.dat", "rb");
+            while(fread(&Tpaket,sizeof(Tpaket),1,Temp)) {
+                fwrite(&Tpaket,sizeof(Tpaket),1,Data1);
             }
-            else {
-                fwrite(&Tpaket,sizeof(Tpaket),1,Temp);
+            fclose(Data1);
+            fclose(Temp);
+        }
+        else if (pilihan3 == 2) {
+            Data1 = fopen("TiketPaket.dat", "rb");
+            Temp = fopen("Temp.dat", "wb");
+            printf("\nMasukkan ID Tiket Yang Dicari: ");
+            gets(&cariId);
+            if(strcmp(cariId, "0")==0) {
+                break;
             }
-        }
-
-        fclose(Data1);
-        fclose(Temp);
-
-        Data1 = fopen("TiketPaket.dat", "wb");
-        Temp = fopen("Temp.dat", "rb");
-        while(fread(&Tpaket,sizeof(Tpaket),1,Temp)) {
-            fwrite(&Tpaket,sizeof(Tpaket),1,Data1);
-        }
-        fclose(Data1);
-        fclose(Temp);
-    }
-    else if (pilihan3 == 3) {
-        Data1 = fopen("TiketPaket.dat", "rb");
-        Temp = fopen("Temp.dat", "wb");
-        printf("\nMasukkan ID Tiket Yang Dicari: ");
-        gets(&cariId);
-        while(fread(&Tpaket,sizeof(Tpaket),1,Data1)) {
-            if(strcmp(Tpaket.idTbiasa,cariId)==0) {
-                printf("Masukkan Jumlah Tiket Yang Ingin Diperbarui : ");
-                scanf(" %f",&Tpaket.jmlh);
-                fwrite(&Tpaket,sizeof(Tpaket),1,Temp);
-                printf("\nJumlah Tiket Berhasil Diupdate!!!");
+            while(fread(&Tpaket,sizeof(Tpaket),1,Data1)) {
+                if(strcmp(Tpaket.idTbiasa,cariId)==0) {
+                    printf("Masukkan Harga Tiket Baru : ");
+                    scanf(" %f",&Tpaket.hrgbiasa);
+                    fwrite(&Tpaket,sizeof(Tpaket),1,Temp);
+                    printf("\nHarga Baru Berhasil Diupdate!!!");
+                }
+                else {
+                    fwrite(&Tpaket,sizeof(Tpaket),1,Temp);
+                }
             }
-            else {
-                fwrite(&Tpaket,sizeof(Tpaket),1,Temp);
+
+            fclose(Data1);
+            fclose(Temp);
+
+            Data1 = fopen("TiketPaket.dat", "wb");
+            Temp = fopen("Temp.dat", "rb");
+            while(fread(&Tpaket,sizeof(Tpaket),1,Temp)) {
+                fwrite(&Tpaket,sizeof(Tpaket),1,Data1);
             }
+            fclose(Data1);
+            fclose(Temp);
         }
+        else if (pilihan3 == 3) {
+            Data1 = fopen("TiketPaket.dat", "rb");
+            Temp = fopen("Temp.dat", "wb");
+            printf("\nMasukkan ID Tiket Yang Dicari: ");
+            gets(&cariId);
+            while(fread(&Tpaket,sizeof(Tpaket),1,Data1)) {
+                if(strcmp(Tpaket.idTbiasa,cariId)==0) {
+                    printf("Masukkan Jumlah Tiket Yang Ingin Diperbarui : ");
+                    scanf(" %f",&Tpaket.jmlh);
+                    fwrite(&Tpaket,sizeof(Tpaket),1,Temp);
+                    printf("\nJumlah Tiket Berhasil Diupdate!!!");
+                }
+                else {
+                    fwrite(&Tpaket,sizeof(Tpaket),1,Temp);
+                }
+            }
 
-        fclose(Data1);
-        fclose(Temp);
+            fclose(Data1);
+            fclose(Temp);
 
-        Data1 = fopen("TiketPaket.dat", "wb");
-        Temp = fopen("Temp.dat", "rb");
-        while(fread(&Tpaket,sizeof(Tpaket),1,Temp)) {
-            fwrite(&Tpaket,sizeof(Tpaket),1,Data1);
+            Data1 = fopen("TiketPaket.dat", "wb");
+            Temp = fopen("Temp.dat", "rb");
+            while(fread(&Tpaket,sizeof(Tpaket),1,Temp)) {
+                fwrite(&Tpaket,sizeof(Tpaket),1,Data1);
+            }
+            fclose(Data1);
+            fclose(Temp);
         }
-        fclose(Data1);
-        fclose(Temp);
-    }
+    }while (pilihan3 != 4);
+    setClearArea(22,22,20,20);
 }
 
 void detailTpaket() {
     Data1 = fopen("TiketPaket.dat", "rb");
     while(fread(&Tpaket, sizeof(Tpaket), 1, Data1)) {
+        gotoxy(115,20);
         printf("\nID Tiket: %s", Tpaket.idTbiasa);
+        gotoxy(115,22);
         printf("\nHari Keberangkatan: %s", Tpaket.jdwl);
+        gotoxy(115,24);
         printf("\nJam Keberangkatan: %s", Tpaket.jam);
+        gotoxy(115,26);
         printf("\n Destinasi: %s", Tpaket.namatmpt);
+        gotoxy(115,28);
         printf("\n Jumlah Harga: %.2f", Tpaket.hrgbiasa);
+        gotoxy(115,30);
         printf("\n Jumlah Tiket: %.0f", Tpaket.jmlh);
     }
     fclose(Data1);
+    setClearArea(115, 20,40,15);
 }
 //Akhir CRUD Tiket Paket
 
@@ -889,6 +1053,94 @@ void inputPassword(char *password, int maxLength) {
     printf("\n");
 }
 
+//-----Input username beserta validasinya-----
+void loginUsername(char username[]){
+    fflush(stdin);
+    int i = 0;
+    char ch;
+    while (1){
+        ch = getch();
+        if (ch == -32 || ch == 224) {
+            getch();
+            continue;
+        }
+        if (ch == BACKSPACE){
+            if (i > 0){
+                printf("\b \b");
+                i--;
+            }
+        }
+        else if (ch == ENTER){
+            break;
+        }
+        else if (i < 8 && ch != SPACE && ch != TAB && (ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9')){
+            username[i] = ch;
+            printf("%c", username[i]);
+            i++;
+        }
+    }
+    username[i] = '\0';
+}
+
+//-----Input password beserta validasinya-----
+void loginPassword(char password[]){
+    fflush(stdin);
+    int i = 0;
+    char ch;
+    while(1){
+        ch = getch();
+        if (ch == -32 || ch == 224) {
+            getch();
+            continue;
+        }
+        if(ch == BACKSPACE){
+            if(i > 0){
+                printf("\b \b");
+                i--;
+            }
+        }
+        else if(ch == ENTER){
+            break;
+        }
+        else if(i < 8 && ch != SPACE && ch != TAB && (ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9')){
+            password[i] = ch;
+            printf("*");
+            i++;
+        }
+    }
+    password[i] = '\0';
+    // printf("%s", password);
+}
+
+void arrowatasbawah() {
+    char key;
+    int pilih = 1; // Initially select the first menu option
+
+    do {
+        system("cls"); // Clear screen for each iteration
+
+        // Display menu options
+        // printf("\nSelect Menu:\n");
+        // printf("%s1. Option 1\n", (pilih == 1 ? " -> " : "    "));
+        // printf("%s2. Option 2\n", (pilih == 2 ? " -> " : "    "));
+        // printf("%s3. Option 3\n", (pilih == 3 ? " -> " : "    "));
+
+        // Capture user input
+        key = getch();
+
+        // Handle key press (assuming W/S for navigation)
+        if (key == 72) { // Move up
+            if(pilih > 1) {
+                pilih--;
+            }
+        } else if (key == 80) { // Move down
+            if (pilih < 3) {
+                pilih++;
+            }
+        }
+
+    } while (key != 13); // Continue until Enter key (ASCII 13) is pressed
+}
 
 
 
